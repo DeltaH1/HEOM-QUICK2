@@ -116,7 +116,7 @@
 
   For the compilation of HEOM-QUICK2 one needs:
 >      1. Compilers for Fortran (at least F2008 compliant). 
->         Recommend intel-oneapi-base-kit+intel-oneapi-hpc-kit;
+>         Recommend gfortran;
 >      2. Numerical libraries: BLAS, and LAPACK. 
 >         Recommend intel-oneapi-mkl;
 >      3. Support for OpenMP libraries (at least OpenMP4.0) 
@@ -141,7 +141,7 @@
                     the executable "HEOM-QUICK2.x" is generated; 
                 b) "F77" defines the command to invoke your Fortran compiler 
                     (e.g. gfortran, ifort, …) and "FFLAGS" specifies the compile flags. 
-                   For example, the tag "-qopenmp" tells the parallelizer to
+                   For example, the tag "-fopenmp" tells the parallelizer to
                     generate a multi-threaded executable based on OpenMP directives in the Linux platform; 
                 c) "LIBDIR" and "LIBS" provides the links to BLAS, 
                     LAPACK libraries that are a part of intel Math Kernel Library (MKL).
