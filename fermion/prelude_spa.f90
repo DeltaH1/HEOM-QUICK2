@@ -77,7 +77,7 @@ if (lexist) then
    write(6,*)
    write(6,*)'prelude_spa: <sparse_index.data> and <sparse_info.data> found '
    write(6,*)'prelude_spa: start reading '
-   open(unit=52, file='sparse_index.data', form='binary', status='old')
+   open(unit=52, file='sparse_index.data', access='stream', status='old')
    rewind(52)
    read(52)ntmp1, ntmp2, ntmp3, ntmp4, ntmp5, ntmp6, ntmp7, ntmp8, ntmp9
    if (ntmp1 .ne. ntier .or. ntmp2 .ne. ncor .or. ntmp3 .ne. norbs .or.      &
@@ -94,8 +94,8 @@ if (lexist) then
       goto 15
    end if
    read(52)lni, ltmp1, ltmp2, ltmp3, ltmp4, ltmp5
-   if (lni .ne. nunk .or. ltmp1 .ne. offcor .or. ltmp2 .ne. lequileads .or. &
-       ltmp3 .ne. lsimple .or. ltmp4 .ne. lscreen .or. ltmp5 .ne. lproj) then
+   if (lni .ne. nunk .or. ltmp1 .neqv. offcor .or. ltmp2 .neqv. lequileads .or. &
+       ltmp3 .neqv. lsimple .or. ltmp4 .neqv. lscreen .or. ltmp5 .neqv. lproj) then
       write(6,*)'prelude_spa: <sparse_index.data> incompatible -- 2 '
       write(6,*)'prelude_spa: abort reading '
       write(6,*)lni, ltmp1, ltmp2, ltmp3, ltmp4, ltmp5
@@ -107,7 +107,7 @@ if (lexist) then
    end if
    read(52)ltmp1, ntmp1, ntmp2, ntmp3
    if (lproj .and. (ntmp1 .ne. nproji .or. ntmp2 .ne. nprojf) .and. (.not. lprocc)  .or. &
-       lproj .and. (ltmp1 .ne. lprocc)                                              .or. &
+       lproj .and. (ltmp1 .neqv. lprocc)                                              .or. &
        lproj .and. lprocc .and. (ntmp3 .ne. nprocc)) then
       write(6,*)'prelude_spa: <sparse_index.data> incompatible -- 3 '
       write(6,*)'prelude_spa: abort reading '
@@ -119,11 +119,11 @@ if (lexist) then
       goto 15
    end if
 !
-   open(unit=53, file='sparse_info.data', form='binary', status='old')
+   open(unit=53, file='sparse_info.data', access='stream', status='old')
    rewind(53)
    read(53)lni, ltmp1, ltmp2, ltmp3, ltmp4, ltmp5
-   if (lni .ne. nunk .or. ltmp1 .ne. offcor .or. ltmp2 .ne. lequileads .or. &
-       ltmp3 .ne. lsimple .or. ltmp4 .ne. lscreen .or. ltmp5 .ne. lproj) then
+   if (lni .ne. nunk .or. ltmp1 .neqv. offcor .or. ltmp2 .neqv. lequileads .or. &
+       ltmp3 .neqv. lsimple .or. ltmp4 .neqv. lscreen .or. ltmp5 .neqv. lproj) then
       write(6,*)'prelude_spa: <sparse_info.data> incompatible -- 1 '
       write(6,*)'prelude_spa: abort reading '
       write(6,*)lni, ltmp1, ltmp2, ltmp3, ltmp4, ltmp5
@@ -570,13 +570,13 @@ end do
 call flush(6)
 !
 !open(unit=48, file='rhocoo.tmp', form='unformatted', status='unknown', access='sequential')
-open(unit=48, file='rhocoo.tmp', form='binary', status='unknown', access='sequential')
+open(unit=48, file='rhocoo.tmp', status='unknown', access='sequential', form='unformatted')
 rewind(48)
 do lni=1,lunk_spa
    write(48)irow_spa(lni), icol_spa(lni)
 end do
 !open(unit=49, file='rhoval.tmp', form='unformatted', status='unknown', access='sequential')
-open(unit=49, file='rhoval.tmp', form='binary', status='unknown', access='sequential')
+open(unit=49, file='rhoval.tmp', status='unknown', access='sequential', form='unformatted')
 rewind(49)
 do lni=1,lunk_spa
    write(49)cmtmp3(irow_spa(lni),icol_spa(lni))
@@ -796,7 +796,7 @@ call flush(6)
 ! output files 
 ! 
 if (iread_spa .ne. 2) then
-   open(unit=52, file='sparse_index.data', form='binary')
+   open(unit=52, file='sparse_index.data', access='stream')
    rewind(52)
    write(52)ntier, ncor, norbs, nspin, nalf, numfff, ntier0, ndrawer_slow, ncor_slow
    write(52)nunk, offcor, lequileads, lsimple, lscreen, lproj
@@ -810,7 +810,7 @@ if (iread_spa .ne. 2) then
    end do
    close(52)
 !
-   open(unit=53, file='sparse_info.data', form='binary')
+   open(unit=53, file='sparse_info.data', access='stream')
    rewind(53)
    write(53)nunk, offcor, lequileads, lsimple, lscreen, lproj
    write(53)lunk_spa

@@ -72,7 +72,7 @@ isgn = 1
 !
 close(79)
 
-100 format(I3,1x,5(I3,1x),6(1x, f16.10),2I)
-101 format(I3,1x,5(I3,1x),6(1x, f16.10),2I)
+100 format(I3,1x,5(I3,1x),6(1x, f16.10),2I0)
+101 format(I3,1x,5(I3,1x),6(1x, f16.10),2I0)
 
 end subroutine outputcorr

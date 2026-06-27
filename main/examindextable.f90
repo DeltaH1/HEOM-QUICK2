@@ -16,7 +16,7 @@ if (ntier0 .le. 2) return
 allocate(vec1(ntier0-1), STAT=istat)
 !
 !open(unit=12, file='indextable.tmp', form='unformatted', status='unknown')
-open(unit=12, file='indextable.tmp', form='binary', status='unknown')
+open(unit=12, file='indextable.tmp', access='stream', status='unknown')
 rewind(12)
 do lni=ifirst(1), ilast(2)
   write(12)indextable(lni)

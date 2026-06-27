@@ -1,14 +1,16 @@
 .SILENT:
-SHELL = /bin/sh
-NAME=/path/to/HEOM-QUICK2.x.x.x/bin/HEOM-QUICK2.x
+SHELL = /bin/sh          
+NAME=/path/to/HEOM-QUICK2.x
 
-DFT=$(NAME)
+DFT=$(NAME)              
 
-F77     = ifort
-FFLAGS  = -qopenmp -O2 -module objmod
-LIBDIR  = -L/MKLPATH -L/opt/intel/lib/intel64/ -L/usr/lib64/ -L/usr/lib/ -I/MKLINCLUDE
-LIBS    = $(LIBDIR)  -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -qopenmp -lpthread
-
+F77     = gfortran          
+FFLAGS  = -fopenmp -O2 -J objmod -ffree-line-length-none -std=legacy -fallow-argument-mismatch
+MKLPATH = /opt/lib/
+MKLLIB  = /path/to/mkl_libs/
+MKLI    = /path/to/mkl_includes/
+LIBDIR  = -L$(MKLPATH)  -L$(MKLLIB) -L/usr/lib64/ -L/usr/lib/ -I$(MKLI)
+LIBS    = $(LIBDIR)  -lmkl_gf_lp64 -lmkl_gnu_thread -lmkl_core -fopenmp -lpthread -lm -ldl
 all:;
 	make project
 
@@ -30,7 +32,7 @@ project:;
 
 $(DFT): objects/*.o 
 	rm -f $(DFT)
-	$(F77) $(FOPTS) -module objmod objects/*.o $(LIBS) -o $(DFT)
+	$(F77) $(FOPTS) -J objmod objects/*.o $(LIBS) -o $(DFT)
 	echo Compiling --$(DFT)-- done !
 
 obj:;

@@ -196,7 +196,7 @@ do
      if (derr0 .lt. derrmin) then
          derrmin = derr0
          if (lsparse) then
-             open(unit=69, file='rho_spa.jac', form='binary', status='unknown')
+             open(unit=69, file='rho_spa.jac', access='stream', status='unknown')
              rewind(69)
              write(69)norbs, nspin, ncor, ntier, nalf
              write(69)nunk

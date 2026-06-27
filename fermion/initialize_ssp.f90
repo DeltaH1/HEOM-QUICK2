@@ -54,10 +54,10 @@ allocate(rsdm(norbs,norbs,nspin), STAT=istat)
 ! Initialize density matrix (and auxiliary density matrix) here, and
 ! note that normalization constraint for rho^0 should be satisfied at this stage.
 !
-open(unit=73, file='rho_spa.per', form='binary', status='unknown')
+open(unit=73, file='rho_spa.per', access='stream', status='unknown')
 rewind(73)
 if (nstep_ssp .eq. 2) then
-    open(unit=74, file='rhs_spa.per', form='binary', status='unknown')
+    open(unit=74, file='rhs_spa.per', access='stream', status='unknown')
     rewind(74)
 end if
 !

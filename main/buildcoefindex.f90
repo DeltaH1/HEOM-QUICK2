@@ -58,7 +58,7 @@ end if
 if (iexist) then
    write(6,*)
    write(6,*)' coefindex.data found, start to read '
-   open(unit=18, file='coefindex.data', form='binary', status='old')
+   open(unit=18, file='coefindex.data', access='stream', status='old')
    rewind(18)
    read(18)ntmp1, ntmp2, ntmp3, ntmp4, ntmp5, ntmp6, ntmp7, ntmp8, ntmp9
    if (ntmp1 .ne. ntier .or. ntmp2 .ne. ncor .or. ntmp3 .ne. norbs .or.     &
@@ -74,7 +74,7 @@ if (iexist) then
        goto 15
    end if
    read(18)ltmp1, ltmp2, ltmp3, ntmp1, ntmp2, dtmp1
-   if (ltmp1 .ne. lad) then
+   if (ltmp1 .neqv. lad) then
        write(6,*)
        write(6,*)'buildcoefindex: coefindex.data found incompatible! abort reading '
        write(6,*)' ltmp1, lad ', ltmp1, lad
@@ -84,7 +84,7 @@ if (iexist) then
        goto 15
    end if
    if (lad) then
-       if (ltmp2 .ne. lad_fast .or. ltmp3 .ne. lset_fast .or.       &
+       if (ltmp2 .neqv. lad_fast .or. ltmp3 .neqv. lset_fast .or.       &
            ntmp1 .ne. idegen_fast .or. ntmp2 .ne. ndegen_fast .or.  &
            dabs(dtmp1 - dratio_fast) .gt. dpico) then
            write(6,*)
@@ -98,7 +98,7 @@ if (iexist) then
        end if
    end if
    read(18)ltmp1, ntmp2, ntmp3
-   if (ltmp1 .ne. lfilter .or.                                              &
+   if (ltmp1 .neqv. lfilter .or.                                              &
        lfilter .and. (ntmp2 .ne. nfilter_count .or. ntmp3 .ne. nfilter_long)) then 
        write(6,*)'buildcoefindex: coefindex.data found incompatible! abort reading '
        write(6,*)ltmp1, ntmp2, ntmp3
@@ -109,7 +109,7 @@ if (iexist) then
        goto 15
    end if
    read(18)ltmp1
-   if (ltmp1 .ne. ltrun_der) then
+   if (ltmp1 .neqv. ltrun_der) then
        write(6,*)'buildcoefindex: coefindex.data found incompatible! abort reading '
        write(6,*)ltmp1
        write(6,*)ltrun_der
@@ -119,7 +119,7 @@ if (iexist) then
        goto 15
    end if
    read(18)ltmp1, ltmp2
-   if (ltmp1 .ne. lsimple .or. ltmp2 .ne. lwalf) then
+   if (ltmp1 .neqv. lsimple .or. ltmp2 .neqv. lwalf) then
        write(6,*)'buildcoefindex: coefindex.data found incompatible! abort reading '
        write(6,*)ltmp1, lsimple
        write(6,*)ltmp2, lwalf
@@ -129,7 +129,7 @@ if (iexist) then
        goto 15
    end if
    read(18)ltmp1
-   if (ltmp1 .ne. lscreen) then
+   if (ltmp1 .neqv. lscreen) then
        write(6,*)'buildcoefindex: coefindex.data found incompatible! abort reading '
        write(6,*)ltmp1, lscreen
        call flush(6)
@@ -138,7 +138,7 @@ if (iexist) then
        goto 15
    end if
    read(18)ltmp1, dtmp1
-   if (ltmp1 .ne. lomit) then
+   if (ltmp1 .neqv. lomit) then
        write(6,*)'buildcoefindex: coefindex.data found incompatible! abort reading '
        write(6,*)ltmp1, lomit
        call flush(6)
@@ -158,7 +158,7 @@ if (iexist) then
    end if
    read(18)lall
 !
-   open(unit=37, file='auxindex.data', form='binary', status='old')
+   open(unit=37, file='auxindex.data', access='stream', status='old')
    rewind(37)
    read(37)lni
    if (lni .ne. nunk) then
@@ -168,7 +168,7 @@ if (iexist) then
    end if
 !
    if (lsimple) then
-      open(unit=67, file='oprindex.data', form='binary', status='old')
+      open(unit=67, file='oprindex.data', access='stream', status='old')
       rewind(67)
       read(67)ntmp1, ntmp2
       if (ntmp1 .ne. ntier .or. ntmp2 .ne. ntier0) then
@@ -190,12 +190,12 @@ end if
 15 continue
 !
 mdim = MAXTIER
-open(unit=16, file='coefindex.tmp', form='binary', status='unknown')
+open(unit=16, file='coefindex.tmp', access='stream', status='unknown')
 rewind(16)
 lall = 0
 !
 if (lsimple) then
-   open(unit=66, file='oprindex.tmp', form='binary', status='unknown') 
+   open(unit=66, file='oprindex.tmp', access='stream', status='unknown') 
    rewind(66)
    lopr = 0
 end if
@@ -656,7 +656,7 @@ end if
 !
 ! read into memory
 !
-open(unit=16, file='coefindex.tmp', form='binary', status='unknown')
+open(unit=16, file='coefindex.tmp', access='stream', status='unknown')
 rewind(16)
 do lni=1,lall
   read(16) lnj, iout, ifactfront, ifactrear
@@ -668,7 +668,7 @@ end do
 close(unit=16, status="delete")
 !
 if (lsimple) then
-   open(unit=66, file='oprindex.tmp', form='binary', status='unknown')
+   open(unit=66, file='oprindex.tmp', access='stream', status='unknown')
    rewind(66)
    do lni=1,lopr
       read(66) lnj, nj
@@ -680,7 +680,7 @@ end if
 ! write to file
 !
 !open(unit=17, file='coefindex.data', form='binary', status='unknown', asynchronous='yes')
-open(unit=17, file='coefindex.data', form='binary', status='unknown')
+open(unit=17, file='coefindex.data', access='stream', status='unknown')
 rewind(17)
 write(17)ntier, ncor, norbs, nspin, nalf, numfff, ntier0, ndrawer_slow, ncor_slow
 write(17)lad, lad_fast, lset_fast, idegen_fast, ndegen_fast, dratio_fast
@@ -695,7 +695,7 @@ do lni=1,lall
 end do
 close(17)
 !
-open(unit=37, file='auxindex.data', form='binary', status='unknown')
+open(unit=37, file='auxindex.data', access='stream', status='unknown')
 rewind(37)
 write(37)nunk
 do lni=1,nunk
@@ -709,7 +709,7 @@ end if
 close(37)
 !
 if (lsimple) then
-   open(unit=67, file='oprindex.data', form='binary', status='unknown')
+   open(unit=67, file='oprindex.data', access='stream', status='unknown')
    rewind(67)
    write(67)ntier, ntier0
    write(67)lopr

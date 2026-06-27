@@ -104,7 +104,7 @@ if (lhb) then
       stop
    end if
 !
-   open(unit=65, file='rho_hb.data', form='binary', status='unknown')
+   open(unit=65, file='rho_hb.data', access='stream', status='unknown')
    rewind(65)
    read(65)ntmp1, ntmp2, ntmp3, ntmp4, ntmp5  ! norbs, nspin, ncor, jtier, and nalf
    if (ntmp1 .ne. norbs .or. ntmp2 .ne. nspin .or. ntmp3 .ne. ncor .or. &

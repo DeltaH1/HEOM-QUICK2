@@ -1086,9 +1086,9 @@ end if
 !
 if (lsparse) then
    if (igroundsteady .eq. 0) then
-      open(unit=51, file='rho_spa.gr', form='binary', status='unknown')
+      open(unit=51, file='rho_spa.gr', access='stream', status='unknown')
    else if (igroundsteady .eq. 1) then
-      open(unit=51, file='rho_spa.st', form='binary', status='unknown')
+      open(unit=51, file='rho_spa.st', access='stream', status='unknown')
    end if
    if (igroundsteady .eq. 0 .or. igroundsteady .eq. 1) then
       rewind(51)
@@ -1654,7 +1654,7 @@ call checkrho
 !write(6,1010)' TDRHO ', tt, ((dble(rhosys(ni,nj)), ni=1,nj), nj=1,nrho),         &
 !                           ((dimag(rhosys(ni,nj)), ni=1,nj), nj=1,nrho)           
 !
-open(unit=14, file='indextable.sav', form='binary', status='unknown')
+open(unit=14, file='indextable.sav', access='stream', status='unknown')
 rewind(14)
 write(14)ntable
 write(14)(indextable(ntmp2), ntmp2=1,ntable)
@@ -1662,9 +1662,9 @@ close(14)
 !
 if (lsparse) then
    if (itdskip .eq. 0) then
-      open(unit=50, file='rho_spa.sav', form='binary', status='unknown')
+      open(unit=50, file='rho_spa.sav', access='stream', status='unknown')
    else
-      open(unit=50, file='rho_spa_td.sav', form='binary', status='unknown')
+      open(unit=50, file='rho_spa_td.sav', access='stream', status='unknown')
    end if
    rewind(50)
    write(50)norbs, nspin, ncor, ntier0, nalf
@@ -1692,7 +1692,7 @@ else
    close(15)
 !
    if (lhb) then
-      open(unit=65, file='rho_hb.data', form='binary', status='unknown')
+      open(unit=65, file='rho_hb.data', access='stream', status='unknown')
       rewind(65)
       write(65)norbs, nspin, ncor, ntier, nalf
       write(65)nmode_hb, ncor_hb, nbath_hb

@@ -69,7 +69,7 @@ if (iop .eq. 1) then   ! read
   end if
 !
   read(39)la
-  if (la .ne. ljw_dos) then
+  if (la .neqv. ljw_dos) then
      write(6,*)
      write(6,*)'resume_cf: error reading line 5 of TAPE.resume_cf'
      write(6,*)la, ljw_dos

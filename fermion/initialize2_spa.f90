@@ -21,7 +21,7 @@ allocate(rsdm(norbs,norbs,nspin), STAT=istat)
 ! Initialize density matrix (and auxiliary density matrix) here, and
 ! note that normalization constraint for rho^0 should be satisfied at this stage.
 !
-open(unit=50, file='rho_spa.sav', form='binary', status='unknown')
+open(unit=50, file='rho_spa.sav', access='stream', status='unknown')
 rewind(50)
 read(50)ntmp1, ntmp2, ntmp3, ntmp4, ntmp5  ! corresponding to norbs, nspin, ncor, jtier, and nalf, respectively
 read(50)lunk                               ! number of unknowns up to jtier (jtier <= ntier0)

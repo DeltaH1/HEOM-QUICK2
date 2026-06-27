@@ -67,7 +67,7 @@ if (lexist) then
    write(6,*)
    write(6,*)'prelude_cf_spa: <sparse_index_cf.data> and <sparse_info_cf.data> found '
    write(6,*)'prelude_cf_spa: start reading '
-   open(unit=54, file='sparse_index_cf.data', form='binary', status='old')
+   open(unit=54, file='sparse_index_cf.data', access='stream', status='old')
    rewind(54)
    read(54)ntmp1, ntmp2, ntmp3, ntmp4, ntmp5, ntmp6, ntmp7, ntmp8, ntmp9, ntmp10, ntmp11
    if (ntmp1 .ne. ntier .or. ntmp2 .ne. ncor .or. ntmp3 .ne. norbs .or.     &
@@ -85,8 +85,8 @@ if (lexist) then
        goto 15
    end if
    read(54)lni, ltmp1, ltmp2, ltmp3, ltmp4
-   if (lni .ne. nunk .or. ltmp1 .ne. offcor .or. ltmp2 .ne. lequileads .or. &
-       ltmp3 .ne. lsimple .or. ltmp4 .ne. lscreen) then
+   if (lni .ne. nunk .or. ltmp1 .neqv. offcor .or. ltmp2 .neqv. lequileads .or. &
+       ltmp3 .neqv. lsimple .or. ltmp4 .neqv. lscreen) then
       write(6,*)'prelude_cf_spa: <sparse_index_cf.data> incompatible with present job '
       write(6,*)'prelude_cf_spa: abort reading '
       write(6,*)lni, ltmp1, ltmp2, ltmp3, ltmp4
@@ -97,11 +97,11 @@ if (lexist) then
       goto 15
    end if
 !
-   open(unit=55, file='sparse_info_cf.data', form='binary', status='old')
+   open(unit=55, file='sparse_info_cf.data', access='stream', status='old')
    rewind(55)
    read(55)lni, ltmp1, ltmp2, ltmp3, ltmp4
-   if (lni .ne. nunk .or. ltmp1 .ne. offcor .or. ltmp2 .ne. lequileads .or. &
-       ltmp3 .ne. lsimple .or. ltmp4 .ne. lscreen) then
+   if (lni .ne. nunk .or. ltmp1 .neqv. offcor .or. ltmp2 .neqv. lequileads .or. &
+       ltmp3 .neqv. lsimple .or. ltmp4 .neqv. lscreen) then
        write(6,*)'prelude_cf_spa: <sparse_info_cf.data> incompatible with present job '
        write(6,*)'prelude_cf_spa: abort reading '
        write(6,*)lni, ltmp1, ltmp2, ltmp3, ltmp4
@@ -514,12 +514,12 @@ spa_rho: do nj=1,nrho
    end do
 end do spa_rho
 !
-open(unit=48, file='rhocoo.tmp', form='binary', status='unknown', access='sequential')
+open(unit=48, file='rhocoo.tmp', status='unknown', access='sequential')
 rewind(48)
 do lni=1,lunkcf_spa
    write(48)irowcf_spa(lni), icolcf_spa(lni)
 end do
-open(unit=49, file='rhoval.tmp', form='binary', status='unknown', access='sequential')
+open(unit=49, file='rhoval.tmp', status='unknown', access='sequential')
 rewind(49)
 do lni=1,lunkcf_spa
    write(49)cmtmp1(irowcf_spa(lni),icolcf_spa(lni))
@@ -714,7 +714,7 @@ call flush(6)
 ! output files 
 ! 
 if (.not. lexist) then
-   open(unit=54, file='sparse_index_cf.data', form='binary')
+   open(unit=54, file='sparse_index_cf.data', access='stream')
    rewind(54)
    write(54)ntier, ncor, norbs, nspin, nalf, numfff, ntier0, ndrawer_slow, ncor_slow, iorbs_dos, ispin_dos
    write(54)nunk, offcor, lequileads, lsimple, lscreen
@@ -727,7 +727,7 @@ if (.not. lexist) then
    end do
    close(54)
 !
-   open(unit=55, file='sparse_info_cf.data', form='binary')
+   open(unit=55, file='sparse_info_cf.data', access='stream')
    rewind(55)
    write(55)nunk, offcor, lequileads, lsimple, lscreen
    write(55)lunkcf_spa

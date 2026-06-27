@@ -151,7 +151,7 @@ if (lssp .and. nstep_ssp .eq. 1) then
     write(6,*)
     write(6,*)'solve_tfqmr: initial norm ', dtmp2
     call flush(6)
-    open(unit=74, file='rhs_spa.per', form='binary', status='unknown')
+    open(unit=74, file='rhs_spa.per', access='stream', status='unknown')
     rewind(74)
     write(74)norbs, nspin, ncor, ntier0, nalf
     write(74)nunk
@@ -219,7 +219,7 @@ do
      if (lsparse .and. derr0 .lt. derrmin) then
          derrmin = derr0
          allocate(cvec1(nrho**2), STAT=istat)
-         open(unit=71, file='rho_spa.chk', status='unknown', form='binary')
+         open(unit=71, file='rho_spa.chk', status='unknown', access='stream')
          rewind(71)
          write(71)norbs, nspin, ncor, ntier0, nalf
          write(71)nunk
@@ -367,7 +367,7 @@ if (lssp) then
     !   lnj = lnj + 2
     !end do
     !qmrvecs(lnum-1,9) = qmrvecs(lnum-1,9) - 1.d0
-    open(unit=73, file='rho_spa.per', form='binary', status='unknown')
+    open(unit=73, file='rho_spa.per', access='stream', status='unknown')
     rewind(73)
     write(73)norbs, nspin, ncor, ntier0, nalf
     write(73)nunk

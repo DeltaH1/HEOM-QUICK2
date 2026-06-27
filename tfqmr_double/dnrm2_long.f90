@@ -1,7 +1,7 @@
       double precision function dnrm2_long ( n, dx, incx) 
 !      integer i, incx, ix, j, n, next 
-      integer*8 i, ix, j, n, next 
-      integer incx
+      integer*8 i, ix, j, n 
+      integer incx, next
       double precision   dx(1), cutlo, cuthi, hitest, sum, xmax,zero,one 
       data   zero, one /0.0d0, 1.0d0/ 
 !                                                                       

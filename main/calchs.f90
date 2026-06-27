@@ -60,7 +60,7 @@ if (itimes .eq. 1) then
    51 continue
 !
    if (lhubbard .and. lspindiff) then
-      if (nspin .ne. 2 .or. lspinsymm .eq. .true.) then   
+      if (nspin .ne. 2 .or. lspinsymm .eqv. .true.) then   
          write(6,*)'calchs: error! intrinsic input error for lspindiff=T case '
          stop
       end if

@@ -15,7 +15,7 @@ integer*8 :: lni, lnj
 real*8  :: dtmp1, dtmp2
 !
 if (iop .eq. 1) then   ! read
-  open(unit=23, file='TAPE.resume', form='binary', status='old', iostat=istat)
+  open(unit=23, file='TAPE.resume', access='stream', status='old', iostat=istat)
   if (istat .ne. 0) then
      write(6,*)
      write(6,*)'resumejob: error! TAPE.resume does not exist! '
@@ -40,7 +40,7 @@ if (iop .eq. 1) then   ! read
      stop
   end if
   read(23)ltmp1
-  if (ltmp1 .ne. lhb) then
+  if (ltmp1 .neqv. lhb) then
      write(6,*)
      write(6,*)'resumejob: error! bad TAPE.resume to read 3! '
      write(6,*)ltmp1, lhb
@@ -80,7 +80,7 @@ else if (iop .eq. 2) then ! write
 !  write(6,*)'resumejob: writing at ', ncount
 !  call flush(6)
   write(chtmp0,'(I10)')ncount
-  open(unit=23, file='TAPE_'//trim(adjustl(chtmp0))//'.resume', form='binary', &
+  open(unit=23, file='TAPE_'//trim(adjustl(chtmp0))//'.resume', access='stream', &
        status='unknown', iostat=istat)
   rewind(23)
   write(23)tt

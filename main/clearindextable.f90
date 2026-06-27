@@ -30,7 +30,7 @@ do itier=2,ntier0
 end do
 !
 !open(unit=12, file='indextable.tmp', form='unformatted', status='unknown')
-open(unit=12, file='indextable.tmp', form='binary', status='unknown')
+open(unit=12, file='indextable.tmp', access='stream', status='unknown')
 rewind(12)
 do lni=1,lnk 
   read(12)indextable(lni)

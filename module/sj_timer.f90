@@ -67,11 +67,11 @@ contains
       
       if(c_start .eq. 0) then
          call system_clock(count=c_start, count_rate=c_rate)
-         print '("sj_debug_clockstart= ",i)', c_start
+         print '("sj_debug_clockstart= ",i0)', c_start
       end if
       if(c_rate .eq. 0) then
          call system_clock(count_rate=c_rate)
-         print '("sj_debug_clockrate= ",i)', c_rate
+         print '("sj_debug_clockrate= ",i0)', c_rate
       end if
 
       call cpu_time(t)
@@ -95,8 +95,8 @@ contains
          clock_start(ntimer)=clock
          print '("sj_dbg_timer_start: ntimer=",i4)', ntimer
       else 
-         print '("sj_dbg_timer_start: error! ntimer=",i," is already running!")', ntimer
-         print '("sj_dbg_timer_start: error! clock_start= ",i," cpu_start= ", f15.5)', clock_start(ntimer), cpu_start(ntimer)
+         print '("sj_dbg_timer_start: error! ntimer=",i0," is already running!")', ntimer
+         print '("sj_dbg_timer_start: error! clock_start= ",i0," cpu_start= ", f15.5)', clock_start(ntimer), cpu_start(ntimer)
       end if
 
       if(clock_rate .eq. 0) then

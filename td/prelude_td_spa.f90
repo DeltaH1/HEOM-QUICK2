@@ -71,7 +71,7 @@ if (lexist) then
    write(6,*)
    write(6,*)'prelude_td_spa: <sparse_index_td.data> and <sparse_info_td.data> found '
    write(6,*)'prelude_td_spa: start reading '
-   open(unit=56, file='sparse_index_td.data', form='binary', status='old')
+   open(unit=56, file='sparse_index_td.data', access='stream', status='old')
    rewind(56)
    read(56)ntmp1, ntmp2, ntmp3, ntmp4, ntmp5, ntmp6
    if (ntmp1 .ne. ntier .or. ntmp2 .ne. ncor .or. ntmp3 .ne. norbs .or.     &
@@ -87,7 +87,7 @@ if (lexist) then
       goto 15
    end if
    read(56)lni, ltmp1, ltmp2
-   if (lni .ne. nunk .or. ltmp1 .ne. offcor .or. ltmp2 .ne. lequileads) then
+   if (lni .ne. nunk .or. ltmp1 .neqv. offcor .or. ltmp2 .neqv. lequileads) then
       write(6,*)'prelude_td_spa: <sparse_index_td.data> incompatible with present job '
       write(6,*)'prelude_td_spa: abort reading '
       write(6,*)lni, ltmp1, ltmp2
@@ -98,10 +98,10 @@ if (lexist) then
       goto 15
    end if
 !
-   open(unit=57, file='sparse_info_td.data', form='binary', status='old')
+   open(unit=57, file='sparse_info_td.data', access='stream', status='old')
    rewind(57)
    read(57)lni, ltmp1, ltmp2
-   if (lni .ne. nunk .or. ltmp1 .ne. offcor .or. ltmp2 .ne. lequileads) then
+   if (lni .ne. nunk .or. ltmp1 .neqv. offcor .or. ltmp2 .neqv. lequileads) then
       write(6,*)'prelude_td_spa: <sparse_info_td.data> incompatible with present job '
       write(6,*)'prelude_td_spa: abort reading '
       write(6,*)lni, ltmp1, ltmp2
@@ -528,12 +528,12 @@ do ni=1,na
 end do
 call flush(6)
 !
-open(unit=48, file='rhocoo.tmp', form='binary', status='unknown', access='sequential')
+open(unit=48, file='rhocoo.tmp', status='unknown', access='sequential')
 rewind(48)
 do lni=1,lunk_spa
    write(48)irow_spa(lni), icol_spa(lni)
 end do
-open(unit=49, file='rhoval.tmp', form='binary', status='unknown', access='sequential')
+open(unit=49, file='rhoval.tmp', status='unknown', access='sequential')
 rewind(49)
 do lni=1,lunk_spa
    write(49)cmtmp3(irow_spa(lni),icol_spa(lni))
@@ -753,7 +753,7 @@ call flush(6)
 ! output files 
 ! 
 if (.not. (lexist .and. lsame)) then
-   open(unit=56, file='sparse_index_td.data', form='binary')
+   open(unit=56, file='sparse_index_td.data', access='stream')
    rewind(56)
    write(56)ntier, ncor, norbs, nspin, nalf, numfff
    write(56)nunk, offcor, lequileads
@@ -766,7 +766,7 @@ if (.not. (lexist .and. lsame)) then
    end do
    close(56)
 !
-   open(unit=57, file='sparse_info_td.data', form='binary')
+   open(unit=57, file='sparse_info_td.data', access='stream')
    rewind(57)
    write(57)nunk, offcor, lequileads
    write(57)lunk_spa

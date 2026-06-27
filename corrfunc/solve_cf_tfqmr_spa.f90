@@ -204,14 +204,14 @@ if (lread_dos) then
         inquire(file='rho1_spa_cf.sav', exist=lexist)
         if (lexist) then
             write(6,*)'solve_cf_tfqmr_spa: trying to read <rho1_spa_cf.sav> '
-            open(unit=75, file='rho1_spa_cf.sav', form='binary', status='old')
+            open(unit=75, file='rho1_spa_cf.sav', access='stream', status='old')
         end if
     else if (isgnb .eq. 2) then
         write(6,*)'solve_cf_tfqmr_spa: inquiring file <rho2_spa_cf.sav> '
         inquire(file='rho2_spa_cf.sav', exist=lexist)
         if (lexist) then
             write(6,*)'solve_cf_tfqmr_spa: trying to read <rho2_spa_cf.sav> '
-            open(unit=75, file='rho2_spa_cf.sav', form='binary', status='old')
+            open(unit=75, file='rho2_spa_cf.sav', access='stream', status='old')
         end if
     else
         write(6,*)'solve_cf_tfqmr_spa: error! unknown isgnb ', isgnb
@@ -316,9 +316,9 @@ call flush(6)
 !
 if (lexist) then
     if (isgnb .eq. 1) then
-        open(unit=75, file='rho1_spa_cf.sav', form='binary', status='old')
+        open(unit=75, file='rho1_spa_cf.sav', access='stream', status='old')
     else if (isgnb .eq. 2) then
-        open(unit=75, file='rho2_spa_cf.sav', form='binary', status='old')
+        open(unit=75, file='rho2_spa_cf.sav', access='stream', status='old')
     else
         write(6,*)'solve_cf_tfqmr_spa: error! unknown isgnb ', isgnb
         stop
@@ -370,9 +370,9 @@ call zmat_coo2dns(nnz, irowcf_spa(lnj), icolcf_spa(lnj), cvec1, zouta, nrho, nrh
 ! output to file
 !
 if (isgnb .eq. 1) then
-    open(unit=75, file='rho1_spa_cf.sav', form='binary', status='unknown')
+    open(unit=75, file='rho1_spa_cf.sav', access='stream', status='unknown')
 else if (isgnb .eq. 2) then
-    open(unit=75, file='rho2_spa_cf.sav', form='binary', status='unknown')
+    open(unit=75, file='rho2_spa_cf.sav', access='stream', status='unknown')
 else
     write(6,*)'solve_cf_tfqmr_spa: error! unknown isgnb ', isgnb
     stop

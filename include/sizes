@@ -7,7 +7,7 @@ integer, parameter :: maxtier  = 16                    ! maxtier should be large
 integer, parameter :: maxspin  = 2 
 integer, parameter :: maxorb   = 4
 integer, parameter :: maxcor   = maxorb*maxorb + maxmats + maxfreq
-integer, parameter :: maxprocs = 96
+integer, parameter :: maxprocs = 16
 real*8,  parameter :: version  = 2.02 
 !
 integer, parameter :: nlr      = 2                     ! left and right

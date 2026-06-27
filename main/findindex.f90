@@ -117,8 +117,8 @@ end subroutine findindex
 subroutine compareindex(lni, nball, mindex, iout)
 use matmod
 implicit none
-include './include/sizes'
-include './include/common'
+include '../include/sizes'
+include '../include/common'
 !
 integer*8, intent(in) :: lni
 integer,   intent(in) :: nball, mindex(*)

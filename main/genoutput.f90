@@ -83,7 +83,7 @@ write(6,1000)date(7:8),date(5:6),date(1:4),time(1:2),time(3:4),time(5:6)
 !
 write(6,*)
 write(6,*)'genoutput: original input file ========================================> '
-open(5, status='unknown')
+!open(5, status='unknown')
 rewind(5)
 do 
   read(5, '(A120)', iostat=istat) line

@@ -35,7 +35,7 @@ complex*16, allocatable     :: cvec1(:)
    write(6,*)
    write(6,*)'outputnnz: <sparse_index.data> and <sparse_info.data> found '
    write(6,*)'outputnnz: start reading '
-   open(unit=52, file='sparse_index.data', form='binary', status='old')
+   open(unit=52, file='sparse_index.data', access='stream', status='old')
    rewind(52)
    read(52)ntmp1, ntmp2, ntmp3, ntmp4, ntmp5, ntmp6, ntmp7, ntmp8, ntmp9
    if (ntmp1 .ne. ntier .or. ntmp2 .ne. ncor .or. ntmp3 .ne. norbs .or.      &
@@ -52,8 +52,8 @@ complex*16, allocatable     :: cvec1(:)
       return
    end if
    read(52)lni, ltmp1, ltmp2, ltmp3, ltmp4
-   if (lni .ne. nunk .or. ltmp1 .ne. offcor .or. ltmp2 .ne. lequileads .or. &
-       ltmp3 .ne. lsimple .or. ltmp4 .ne. lscreen) then
+   if (lni .ne. nunk .or. ltmp1 .neqv. offcor .or. ltmp2 .neqv. lequileads .or. &
+       ltmp3 .neqv. lsimple .or. ltmp4 .neqv. lscreen) then
       write(6,*)'outputnnz: <sparse_index.data> incompatible with present job '
       write(6,*)'outputnnz: abort reading '
       write(6,*)lni, ltmp1, ltmp2, ltmp3, ltmp4
@@ -64,11 +64,11 @@ complex*16, allocatable     :: cvec1(:)
       return
    end if
 !
-   open(unit=53, file='sparse_info.data', form='binary', status='old')
+   open(unit=53, file='sparse_info.data', access='stream', status='old')
    rewind(53)
    read(53)lni, ltmp1, ltmp2, ltmp3, ltmp4
-   if (lni .ne. nunk .or. ltmp1 .ne. offcor .or. ltmp2 .ne. lequileads .or. &
-       ltmp3 .ne. lsimple .or. ltmp4 .ne. lscreen) then
+   if (lni .ne. nunk .or. ltmp1 .neqv. offcor .or. ltmp2 .neqv. lequileads .or. &
+       ltmp3 .neqv. lsimple .or. ltmp4 .neqv. lscreen) then
       write(6,*)'outputnnz: <sparse_info.data> incompatible with present job '
       write(6,*)'outputnnz: abort reading '
       write(6,*)lni, ltmp1, ltmp2, ltmp3, ltmp4
